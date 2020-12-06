@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import FormField from './utils/formFields'
+import { validate } from './utils/validate';
 
 class FormFour extends Component {
 
@@ -24,8 +25,32 @@ class FormFour extends Component {
         }
     }
 
+    updateForm = (element) => {
+        const newFormData = { ...this.state.formData }
+        const newElement = { ...newFormData[element.id] }
+
+        newElement.value = element.event.target.value;
+
+        /// validation
+        let validateData = validate(newElement);
+        newElement.valid = validateData[0];
+        newElement.validationMessage = validateData[1];
+
+        /// blur
+        if(element.blur){
+            newElement.touched = element.blur
+        }
+
+        newFormData[element.id] = newElement;
+        this.setState({
+            formData: newFormData
+        })
+    }
+
 
     render(){
+        //console.log(this.state.formData.name)
+
         return(
             <>
                 <div className="container">
@@ -34,7 +59,9 @@ class FormFour extends Component {
                             <label>Name</label>
                             <FormField
                                 formData={this.state.formData.name}
+                                change={ (element) => this.updateForm(element) }
                                 id="name"
+                                
                             />
                         </div>
 

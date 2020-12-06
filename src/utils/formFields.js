@@ -1,7 +1,7 @@
 import React from  'react';
 
 
-const FormField = ({formData,id}) => {
+const FormField = ({formData,change,id}) => {
 
 
     const renderTemplate = () => {
@@ -13,7 +13,12 @@ const FormField = ({formData,id}) => {
                     <>
                         <input
                             {...formData.config}
+                            value={formData.value}
+                            className="form-control"
+                            onChange={ (event) => change({event,id,blur:null}) }
+                            onBlur={ (event) => change({event,id,blur:true}) }
                         />
+                       
                     </>
                 )
             break;
