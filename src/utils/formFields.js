@@ -1,7 +1,7 @@
 import React from  'react';
 
 
-const FormField = ({formData,change,id}) => {
+const FormField = ({formData,change,id, children }) => {
 
     const showError = () => {
         let errorMessage = null;
@@ -40,6 +40,36 @@ const FormField = ({formData,change,id}) => {
                         {showError()}
                     </>
                 )
+            break;
+            case('select'):
+            formTemplate = (
+                <>
+                    <select
+                       {...formData.config}
+                       value={formData.value}
+                       className="form-control"
+                       onChange={ (event) => change({event,id,blur:null}) }
+                       onBlur={ (event) => change({event,id,blur:true}) }
+                    >
+                        {children}
+                    </select>
+                    {showError()}
+                </>
+            )
+            break;
+            case('textarea'):
+            formTemplate = (
+                <>
+                    <textarea
+                       {...formData.config}
+                       value={formData.value}
+                       className="form-control"
+                       onChange={ (event) => change({event,id,blur:null}) }
+                       onBlur={ (event) => change({event,id,blur:true}) }
+                    ></textarea>
+                    {showError()}
+                </>
+            )
             break;
             default:
                 formTemplate = null  

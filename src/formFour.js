@@ -5,6 +5,7 @@ import { validate } from './utils/validate';
 class FormFour extends Component {
 
     state = { 
+        maxAge: 100,
         loading: false,
         formData:{
             name:{
@@ -36,8 +37,48 @@ class FormFour extends Component {
                 valid:false,
                 touched: false,
                 validationMessage:''
+            },
+            age:{
+                element:'select',
+                value:'',
+                config:{
+                    name:'age_input'
+                },
+                validation:{
+                    required:true,
+                    minNum: 20
+                },
+                valid:false,
+                touched: false,
+                validationMessage:''
+            },
+            message:{
+                element:'textarea',
+                value:'',
+                config:{
+                    name:'message_input',
+                    rows:3,
+                    placeholder:'Enter your message....'
+                },
+                validation:{
+                    required:true
+                },
+                valid:false,
+                touched: false,
+                validationMessage:''
             }
         }
+    }
+
+    generateOptions = () => {
+        const ageArray = [];
+        for(let i =1 ; i < this.state.maxAge;i++){
+            ageArray.push(i)
+        }
+
+        return ageArray.map((value,i)=>(
+            <option key={i} value={value}>{value}</option>
+        ))
     }
 
     updateForm = (element) => {
@@ -76,7 +117,7 @@ class FormFour extends Component {
             for(let key in this.state.formData){
                 dataToSubmit[key] =  this.state.formData[key].value
             }
-            // console.log('SUBMIT FORM WITH',dataToSubmit);
+             console.log('SUBMIT FORM WITH',dataToSubmit);
             setTimeout(() => {
                 this.setState({loading:false});
                 this.onSuccess();
@@ -105,7 +146,7 @@ class FormFour extends Component {
 
 
     render(){
-        console.log(this.state.formData.name)
+       // console.log(this.state.formData.name)
 
         return(
             <>
@@ -126,6 +167,25 @@ class FormFour extends Component {
                                 change={ (element) => this.updateForm(element) }
                                 id="lastname"
                             />
+                        </div>
+                        <div className="form-group">
+                            <label>Age</label>
+                            <FormField
+                                formData={this.state.formData.age}
+                                change={ (element) => this.updateForm(element) }
+                                id="age"
+                            >   
+                                <option value="">Select age</option>
+                                {this.generateOptions()}
+                            </FormField>
+                        </div>
+                        <div className="form-group">
+                            <label>Message</label>
+                            <FormField
+                                formData={this.state.formData.message}
+                                change={ (element) => this.updateForm(element) }
+                                id="message"
+                            />  
                         </div>
 
                         <button
