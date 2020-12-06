@@ -49,7 +49,7 @@ class FormFour extends Component {
 
 
     render(){
-        //console.log(this.state.formData.name)
+        console.log(this.state.formData.name)
 
         return(
             <>
@@ -61,7 +61,6 @@ class FormFour extends Component {
                                 formData={this.state.formData.name}
                                 change={ (element) => this.updateForm(element) }
                                 id="name"
-                                
                             />
                         </div>
 

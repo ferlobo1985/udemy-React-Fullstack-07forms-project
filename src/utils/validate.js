@@ -6,6 +6,7 @@ export const validate = (element) => {
         const message = `${!valid ? 'This field is required':''}`;
         error = !valid ? [valid,message] : error
     }
+    
 
     return error;
 }
