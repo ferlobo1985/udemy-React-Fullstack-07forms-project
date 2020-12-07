@@ -6,7 +6,7 @@ import FormOne from './formOne';
 import FormTwo from './formtwo';
 import FormThree from './formThree';
 import FormFour from './formFour';
-import Reducer from './formFour';
+import Reducer from './reducer';
 
 class Routes extends Component {
 
